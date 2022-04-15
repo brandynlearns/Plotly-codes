@@ -1,0 +1,95 @@
+!pip install plotly
+
+import plotly
+
+import pandas as pd 
+import seaborn as sns
+from pandas.plotting import scatter_matrix
+from matplotlib import pyplot as plotly
+from matplotlib import font_manager as font_manager
+from datetime import datetime,timedelta
+import numpy as np
+import plotly.express as px
+import plotly.figure_factory as ff
+import plotly.graph_objects as go
+********************
+# simple line plot
+df = pd.DataFrame({"Years at work" : [1,2,3,4], "income":[6500,10000,12000,14000]})
+df.head()
+
+fig = px.line(df,x="Years at work",y="income", title="Income by num of years at work")
+fig.show()
+********************
+# multiline plot with markers
+
+stud = ['Brandyns Goals', 'Goal_1', 'Goal_2', 'Goal_3']
+
+learn_data_analytics = [89, 78, 90, 98]
+reading = [78, 96, 67, 87]
+exercising = [81,87,92,99]
+creating = [91,93,67,89]
+
+
+
+fig = go.Figure()
+
+fig.add_trace(go.Scatter(x=stud,y=learn_data_analytics,name="Learn Marks",line = dict(color="blue",width=4)))
+
+fig.add_trace(go.Scatter(x=stud,y=reading,name="Reading Marks",line = dict(color="red",width=4)))
+
+fig.add_trace(go.Scatter(x=stud,y=exercising,name="Exercising Marks",line = dict(color="green",width=4,dash='dash')))
+
+fig.add_trace(go.Scatter(x=stud,y=creating,name="Creating Marks",line = dict(color="firebrick",width=4,dash='dot')))
+
+fig.update_layout(title="You can do it Brandyn",xaxis_title="Student",yaxis_title="Marks")
+
+fig.show()
+********************
+# create a barplot 
+
+df = sns.load_dataset('titanic')
+df.head()
+
+fig = px.bar(df,x='pclass', y='fare', color='sex', title='Bar plot for Passenger Class by Fare and Gender')
+fig.show()
+********************
+# area chart
+
+fig = px.area(df,x='sex',y='age', color='survived',title='Area plot for Passenger status by gender & age')
+
+fig.show()
+********************
+# stacked area chart
+
+stud=['Rave','Leo','Steve']
+
+fig = go.Figure()
+
+fig.add_trace(go.Scatter ( x=stud,y=[40,10,20], hoverinfo='x+y',mode='lines',line=dict(width=0.6,color='rgb(172,89,200)'),
+                          stackgroup='one'))
+
+fig.add_trace(go.Scatter ( x=stud,y=[50,5,2], hoverinfo='x+y',mode='lines',line=dict(width=0.6,color='rgb(100,51,190)'),
+                          stackgroup='one'))
+********************
+# pie chart
+
+stud=['Beamerboy','Kevin','Raptor','Piston','Cassie','Fruitcake']
+marks = [34,56,76,87,45,90,91]
+
+fig = go.Figure(data=[go.Pie(labels=stud,values=marks,pull=[0,0,0,0.2,0,0])])
+
+fig.update_traces(textposition='inside',textinfo='percent+label')
+
+fig.update_layout(title='Students and their marks')
+
+fig.show()
+********************
+# scatter plot
+
+iris = sns.load_dataset('iris')
+iris.head()
+
+fig =px.scatter(iris,x="petal_length",y="petal_width",color="species",size='sepal_width',hover_data=['sepal_length'],
+                title = "Scatter plot of Iris Dataset")
+
+fig.show()
